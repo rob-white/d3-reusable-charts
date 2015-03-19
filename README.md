@@ -1,2 +1,3 @@
-# d3-reusable-charts
-Reusable D3.js Charts
+#D3.js Reusable Charts
+
+[Examples](https://github.com/rob-white/d3-reusable-charts/wiki/Examples)

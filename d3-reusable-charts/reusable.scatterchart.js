@@ -29,7 +29,7 @@ function ScatterChart() {
         transition = true,
         xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(xTickFormat).tickSize(6, 0),
         yAxis = d3.svg.axis().scale(yScale).orient("left").tickFormat(yTickFormat),
-        root = d3.select("#content"),
+        root = d3.select("body"),
         scr = { x: window.scrollX, y: window.scrollY, w: window.innerWidth, h: window.innerHeight },
         body_sel = d3.select("body"),
         body = { w: body_sel.node().offsetWidth, h: body_sel.node().offsetHeight },
@@ -100,6 +100,8 @@ function ScatterChart() {
                 // Create a tooltip that we can use for hovering in all graphs in this tab
                 var tooltip = d3.select(sel).append('div')
                     .attr('class', 'tooltip right')
+                    .style('position', 'absolute')
+                    .style('pointer-events', 'none')
                     .style('display', 'none');
                 tooltip.append('div').attr('class', 'tooltip-arrow');
                 tooltip.append('div').attr('class', 'tooltip-inner');
@@ -189,18 +191,29 @@ function ScatterChart() {
                         if (transition) selectedDot.transition().duration(100).attr('r', 5.5);
                         else selectedDot.attr('r', 5.5);
 
+                        //
                         var tooltipHTML = '';
                         for (key in d) {
                             if(d[key] != null && d[key] != dataId(d)) tooltipHTML += key + ': ' + d[key] + '<br />';
                         }
-
+                        //
                         var tooltip = d3.select(sel).select('.tooltip');
-                        tooltip.select('.tooltip-inner').style('background-color', selectedDot.style('fill') == "rgb(255, 255, 255)" ? selectedDot.style('stroke') : selectedDot.style('fill'));
-                        tooltip.style("opacity", "1").style("display", "block").style('filter', 'alpha(opacity=100)').select('.tooltip-inner').html(tooltipHTML);
+
+                        tooltip.select('.tooltip-inner')
+                            .style('text-align', 'left')
+                            .style('background-color', selectedDot.style('fill') == "rgb(255, 255, 255)" ? selectedDot.style('stroke') : selectedDot.style('fill'));
+
+                        tooltip.style("opacity", "1")
+                            .style("display", "block")
+                            .style('filter', 'alpha(opacity=100)')
+                        .select('.tooltip-inner')
+                            .html(tooltipHTML);
+
                         var m = d3.mouse(root.node());
                         scr.x = window.scrollX;
                         scr.y = window.scrollY;
 
+                        svgpos = getNodePos(root.node());
                         m[1] += svgpos.y;
                         tooltip.style("right", "");
                         tooltip.style("left", "");
@@ -614,12 +627,22 @@ function ScatterChart() {
                 for (key in d) {
                     if (d[key] != null && d[key] != dataId(d)) tooltipHTML += key + ': ' + d[key] + '<br />';
                 }
-                tooltip.select('.tooltip-inner').style('background-color', selectedDot.style('fill') == "rgb(255, 255, 255)" ? selectedDot.style('stroke') : selectedDot.style('fill'));
-                tooltip.style("opacity", "1").style("display", "block").style('filter', 'alpha(opacity=100)').select('.tooltip-inner').html(tooltipHTML);
+
+                tooltip.select('.tooltip-inner')
+                    .style('text-align', 'left')
+                    .style('background-color', selectedDot.style('fill') == "rgb(255, 255, 255)" ? selectedDot.style('stroke') : selectedDot.style('fill'));
+
+                tooltip.style("opacity", "1")
+                    .style("display", "block")
+                    .style('filter', 'alpha(opacity=100)')
+                .select('.tooltip-inner')
+                    .html(tooltipHTML);
+
                 var m = d3.mouse(root.node());
                 scr.x = window.scrollX;
                 scr.y = window.scrollY;
 
+                svgpos = getNodePos(root.node())
                 m[1] += svgpos.y;
                 tooltip.style("right", "");
                 tooltip.style("left", "");
@@ -662,6 +685,12 @@ function ScatterChart() {
         if (transition) gDots.exit().transition().attr("r", 0).remove();
         else gDots.exit().remove();
     }
+
+    chart.rootNode = function (_){
+        if (!arguments.length) return root;
+        root = _;
+        return chart;
+    };
 
     chart.margin = function (_) {
         if (!arguments.length) return margin;

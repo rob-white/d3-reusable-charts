@@ -10,7 +10,7 @@ function PieChart() {
         outerRadius = Math.min(width, height) / 2,
         innerRadius = 0,
         color = d3.scale.category20(),
-        root = d3.select("#content"),
+        root = d3.select("body"),
         scr = { x: window.scrollX, y: window.scrollY, w: window.innerWidth, h: window.innerHeight },
         body_sel = d3.select("body"),
         body = { w: body_sel.node().offsetWidth, h: body_sel.node().offsetHeight },
@@ -51,14 +51,14 @@ function PieChart() {
                 svg = d3.select(this).append("svg")
                     .attr("width", width)
                     .attr("height", height)
-                    .append("g")
+                .append("g")
                     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
             }
             else {
                 svg = d3.select(this).select("svg")
                     .attr("width", width)
                     .attr("height", height)
-                    .select("g")
+                .select("g")
                     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
             }
 
@@ -69,7 +69,7 @@ function PieChart() {
             // Update existing
             g.select("path")
                 .style("fill", function (d, i) { return color(group.call(d, d.data, i)); })
-                .transition()
+            .transition()
                 .attrTween("d", arcTween);
 
             // Add new
@@ -85,9 +85,12 @@ function PieChart() {
                     var tooltip = d3.select(sel).select('.tooltip');
                     tooltip.select('.tooltip-inner').style('background-color', selectedRect.style('fill') == "rgb(255, 255, 255)" ? selectedRect.style('stroke') : d3.rgb(selectedRect.style('fill')).darker());
                     tooltip.style("opacity", "1").style("display", "block").style('filter', 'alpha(opacity=100)').select('.tooltip-inner').html(tooltipHTML);
+
                     var m = d3.mouse(root.node());
                     scr.x = window.scrollX;
                     scr.y = window.scrollY;
+
+                    svgpos = getNodePos(root.node());
 
                     m[1] += svgpos.y;
                     tooltip.style("right", "");
@@ -112,6 +115,8 @@ function PieChart() {
                     var m = d3.mouse(root.node());
                     scr.x = window.scrollX;
                     scr.y = window.scrollY;
+
+                    svgpos = getNodePos(root.node());
 
                     m[1] += svgpos.y;
                     tooltip.style("right", "");
@@ -160,42 +165,56 @@ function PieChart() {
     chart.value = function (_) {
         if (!arguments.length) return value;
         value = _;
+
         return chart;
     };
 
     chart.group = function (_) {
         if (!arguments.length) return group;
         group = _;
+
         return chart;
     };
 
     chart.width = function (_) {
         if (!arguments.length) return width;
         width = _;
+
         return chart;
     };
 
     chart.height = function (_) {
         if (!arguments.length) return height;
         height = _;
+
         return chart;
     };
 
     chart.radius = function (_) {
         if (!arguments.length) return outerRadius;
         outerRadius = _;
+
         return chart;
     };
 
     chart.innerRadius = function (_) {
         if (!arguments.length) return innerRadius;
         innerRadius = _;
+
+        return chart;
+    };
+
+    chart.rootNode = function (_) {
+        if (!arguments.length) return root;
+        root = _;
+
         return chart;
     };
 
     chart.color = function (_) {
         if (!arguments.length) return color;
         color = _;
+
         return chart;
     };
 

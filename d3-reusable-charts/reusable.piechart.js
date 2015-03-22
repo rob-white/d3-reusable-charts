@@ -23,7 +23,12 @@ function PieChart() {
         selection.each(function (data) {
 
             var sel = this;
-            color.domain(_.uniq(data.map(function (d, i) { return group.call(data, d, i); })));
+            var groupValues = data.map(function (d, i) { return group.call(data, d, i); })
+            var uniqueValues = groupValues.filter( function(value, index, self){
+                return self.indexOf(value) === index;
+            });
+
+            color.domain(uniqueValues);
 
             var arc = d3.svg.arc()
                 .outerRadius(outerRadius)

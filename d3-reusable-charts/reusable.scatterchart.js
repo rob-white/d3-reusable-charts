@@ -1,6 +1,8 @@
 // Rob White 2015
+// Reusable Scatter Chart
 
 function ScatterChart() {
+
     var margin = { top: 20, right: 20, bottom: 40, left: 30 },
         width = 400,
         height = 200,
@@ -9,8 +11,8 @@ function ScatterChart() {
         yValue = function (d) { return d[1]; },
         xScale = d3.time.scale(),
         yScale = d3.scale.linear(),
-        xLabel = 'X AXIS', // Default x-axis text label
-        yLabel = 'Y AXIS', // Default y-axis text label
+        xLabel = '', // Default x-axis text label
+        yLabel = '', // Default y-axis text label
         showScaleInput = false,
         showLegend = true,
         showGrid = false,

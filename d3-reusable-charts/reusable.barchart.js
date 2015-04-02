@@ -1,6 +1,8 @@
 // Rob White 2015
+// Reusable Bar Chart
 
 function BarChart() {
+
     var margin = { top: 20, right: 20, bottom: 40, left: 30 },
         width = 400,
         height = 200,
@@ -31,7 +33,7 @@ function BarChart() {
         },
         xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(xTickFormat).tickSize(6, 0),
         yAxis = d3.svg.axis().scale(yScale).orient("left").tickFormat(yTickFormat),
-        root = d3.select("#content"),
+        root = d3.select("body"),
         scr = { x: window.scrollX, y: window.scrollY, w: window.innerWidth, h: window.innerHeight },
         body_sel = d3.select("body"),
         body = { w: body_sel.node().offsetWidth, h: body_sel.node().offsetHeight },

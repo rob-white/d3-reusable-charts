@@ -1,6 +1,9 @@
 // Inspired by http://informationandvisualization.de/blog/box-plot
 // http://bl.ocks.org/mbostock/4061502
+// Reusable Box Plot
+
 function BoxPlot() {
+
     var width = 1,
         height = 1,
         colors = d3.scale.category20(),

@@ -70,7 +70,7 @@ function ScatterChart() {
                     d3.min(groups, function (c) { return d3.min(c.values, function (v) { return v[0]; }); }),
                     d3.max(groups, function (c) { return d3.max(c.values, function (v) { return v[0]; }); })
                 ])
-                    .range([0, width - margin.left - margin.right]);
+                .range([0, width - margin.left - margin.right]);
             }
 
             var inactiveData = [];

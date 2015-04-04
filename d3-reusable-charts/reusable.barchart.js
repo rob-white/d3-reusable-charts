@@ -154,6 +154,7 @@ function BarChart() {
                                 scr.x = window.scrollX;
                                 scr.y = window.scrollY;
 
+                                svgpos = getNodePos(root.node());
                                 m[1] += svgpos.y;
                                 tooltip.style("right", "");
                                 tooltip.style("left", "");
@@ -180,6 +181,7 @@ function BarChart() {
                                 scr.x = window.scrollX;
                                 scr.y = window.scrollY;
 
+                                svgpos = getNodePos(root.node());
                                 m[1] += svgpos.y;
                                 tooltip.style("right", "");
                                 tooltip.style("left", "");
@@ -304,6 +306,7 @@ function BarChart() {
                                 scr.x = window.scrollX;
                                 scr.y = window.scrollY;
 
+                                svgpos = getNodePos(root.node());
                                 m[1] += svgpos.y;
                                 tooltip.style("right", "");
                                 tooltip.style("left", "");
@@ -330,6 +333,7 @@ function BarChart() {
                                 scr.x = window.scrollX;
                                 scr.y = window.scrollY;
 
+                                svgpos = getNodePos(root.node());
                                 m[1] += svgpos.y;
                                 tooltip.style("right", "");
                                 tooltip.style("left", "");
@@ -692,6 +696,7 @@ function BarChart() {
                         scr.x = window.scrollX;
                         scr.y = window.scrollY;
 
+                        svgpos = getNodePos(root.node());
                         m[1] += svgpos.y;
                         tooltip.style("right", "");
                         tooltip.style("left", "");
@@ -717,6 +722,7 @@ function BarChart() {
                         scr.x = window.scrollX;
                         scr.y = window.scrollY;
 
+                        svgpos = getNodePos(root.node());
                         m[1] += svgpos.y;
                         tooltip.style("right", "");
                         tooltip.style("left", "");
@@ -908,6 +914,7 @@ function BarChart() {
                         scr.x = window.scrollX;
                         scr.y = window.scrollY;
 
+                        svgpos = getNodePos(root.node());
                         m[1] += svgpos.y;
                         tooltip.style("right", "");
                         tooltip.style("left", "");
@@ -933,6 +940,7 @@ function BarChart() {
                         scr.x = window.scrollX;
                         scr.y = window.scrollY;
 
+                        svgpos = getNodePos(root.node());
                         m[1] += svgpos.y;
                         tooltip.style("right", "");
                         tooltip.style("left", "");
@@ -1191,6 +1199,12 @@ function BarChart() {
         d3.select(legendContainer).select('.legend-outer').attr('height', lContainer.node().getBBox()['height']);
         d3.select(legendContainer).select('.legend-outer').attr('width', d3.select(legendContainer).style('width'));
     }
+
+    chart.rootNode = function (_){
+        if (!arguments.length) return root;
+        root = _;
+        return chart;
+    };
 
     chart.type = function (_) {
         if (!arguments.length) return type;

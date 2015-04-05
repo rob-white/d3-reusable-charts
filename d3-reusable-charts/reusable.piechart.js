@@ -170,7 +170,7 @@ function PieChart() {
         return chart;
     };
 
-    chart.group = function (_) {
+    chart.groupBy = function (_) {
         if (!arguments.length) return group;
         group = _;
 
